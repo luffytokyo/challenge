@@ -6,7 +6,6 @@ import Link from "next/link";
 
 import {
   HERO_TRUST_POINTS,
-  NAV_ITEMS,
   SPLIT_FIELDS,
   SPLIT_MEMBERS,
   SPLIT_STATS,
@@ -76,33 +75,6 @@ function SplitSafeHeader({
           SplitSafe
         </span>
       </Link>
-
-      <nav
-        className="hidden items-center rounded-full border border-[var(--line)] bg-white/[0.045] p-1 text-sm text-[var(--muted)] backdrop-blur-xl lg:flex"
-        aria-label="Primary"
-      >
-        <Link
-          href="/create"
-          className="rounded-full px-5 py-3 transition hover:bg-white/[0.08] hover:text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime)]"
-        >
-          Create
-        </Link>
-        <Link
-          href="/dashboard"
-          className="rounded-full px-5 py-3 transition hover:bg-white/[0.08] hover:text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime)]"
-        >
-          Dashboard
-        </Link>
-        {NAV_ITEMS.slice(2).map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            className="rounded-full px-5 py-3 transition hover:bg-white/[0.08] hover:text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lime)]"
-          >
-            {item}
-          </a>
-        ))}
-      </nav>
 
       <div className="flex flex-col items-end gap-2">
         <button
