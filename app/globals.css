@@ -191,129 +191,87 @@ a {
   animation: preview-breathe 7s ease-in-out infinite;
 }
 
-.shield-scan {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
+.wallet-adapter-modal-overlay {
   background:
-    linear-gradient(115deg, transparent 16%, rgba(213, 255, 95, 0.2) 42%, transparent 58%),
-    radial-gradient(circle at 50% 50%, rgba(213, 255, 95, 0.14), transparent 34%);
-  transform: translateX(-115%);
+    radial-gradient(circle at 50% 30%, rgba(213, 255, 95, 0.12), transparent 28%),
+    rgba(0, 0, 0, 0.72) !important;
+  backdrop-filter: blur(8px);
 }
 
-.shield-active {
-  border-color: rgba(213, 255, 95, 0.38);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 0 0 1px rgba(213, 255, 95, 0.12),
-    0 30px 90px rgba(0, 0, 0, 0.36);
+.wallet-adapter-modal-wrapper {
+  border: 1px solid rgba(230, 255, 238, 0.15) !important;
+  border-radius: 28px !important;
+  background: rgba(7, 16, 13, 0.96) !important;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45) !important;
+  animation: modal-panel-in 260ms cubic-bezier(0, 0, 0.2, 1) both;
 }
 
-.shield-active .shield-scan {
-  animation: shield-scan 1500ms cubic-bezier(0, 0, 0.2, 1) both;
+.wallet-adapter-modal-title {
+  color: var(--ink) !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
 }
 
-.shield-complete {
-  border-color: rgba(213, 255, 95, 0.36);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 0 0 1px rgba(213, 255, 95, 0.16),
-    0 30px 90px rgba(0, 0, 0, 0.36);
+.wallet-adapter-modal-list li,
+.wallet-adapter-modal-list-more {
+  border-radius: 18px !important;
 }
 
-.private-action {
+.wallet-adapter-modal-list .wallet-adapter-button,
+.wallet-adapter-modal-list-more {
+  border: 1px solid rgba(230, 255, 238, 0.1) !important;
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--ink) !important;
+  font-family: inherit !important;
   transition:
-    border-color 220ms cubic-bezier(0, 0, 0.2, 1),
-    background-color 220ms cubic-bezier(0, 0, 0.2, 1),
-    box-shadow 220ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.shield-active .private-action,
-.shield-complete .private-action {
-  border-color: rgba(213, 255, 95, 0.26);
-  background-color: rgba(213, 255, 95, 0.08);
-}
-
-.shield-glyph {
-  position: relative;
-  display: grid;
-  width: 38px;
-  height: 42px;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 18px 18px 20px 20px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.07)),
-    rgba(255, 255, 255, 0.08);
-  clip-path: polygon(50% 0, 90% 14%, 84% 68%, 50% 100%, 16% 68%, 10% 14%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-  transition:
-    background-color 220ms cubic-bezier(0, 0, 0.2, 1),
-    transform 220ms cubic-bezier(0, 0, 0.2, 1),
-    box-shadow 220ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.shield-glyph::before {
-  width: 12px;
-  height: 16px;
-  border: 2px solid rgba(248, 255, 245, 0.78);
-  border-radius: 999px 999px 5px 5px;
-  border-bottom-width: 7px;
-  content: "";
-}
-
-.shield-glyph-active {
-  animation: shield-pop 640ms cubic-bezier(0, 0, 0.2, 1) infinite alternate;
-  background:
-    linear-gradient(180deg, rgba(213, 255, 95, 0.45), rgba(213, 255, 95, 0.12)),
-    rgba(213, 255, 95, 0.08);
-  box-shadow:
-    inset 0 0 0 1px rgba(213, 255, 95, 0.32),
-    0 0 28px rgba(213, 255, 95, 0.22);
-}
-
-.shield-glyph-done {
-  background: var(--lime);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
-    0 0 30px rgba(213, 255, 95, 0.34);
-}
-
-.shield-glyph-done::before {
-  width: 15px;
-  height: 9px;
-  border: 0;
-  border-bottom: 3px solid #10200d;
-  border-left: 3px solid #10200d;
-  border-radius: 0;
-  transform: translateY(-1px) rotate(-45deg);
-}
-
-.shield-button {
-  min-width: 104px;
-  transition:
-    transform var(--motion-soft) cubic-bezier(0, 0, 0.2, 1),
+    border-color 180ms cubic-bezier(0, 0, 0.2, 1),
     background-color 180ms cubic-bezier(0, 0, 0.2, 1),
-    color 180ms cubic-bezier(0, 0, 0.2, 1),
-    box-shadow 180ms cubic-bezier(0, 0, 0.2, 1);
+    transform 180ms cubic-bezier(0, 0, 0.2, 1) !important;
 }
 
-.shield-button:disabled {
-  cursor: wait;
-  opacity: 1;
-  box-shadow: 0 0 24px rgba(213, 255, 95, 0.2);
+.wallet-adapter-modal-list .wallet-adapter-button:hover,
+.wallet-adapter-modal-list-more:hover {
+  border-color: rgba(213, 255, 95, 0.35) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-1px);
 }
 
-.shield-complete .shield-button {
-  box-shadow: 0 0 28px rgba(213, 255, 95, 0.28);
+.wallet-adapter-modal-button-close {
+  border: 1px solid rgba(230, 255, 238, 0.1) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.wallet-adapter-modal-button-close:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
 }
 
 @keyframes rise-in {
   from {
     opacity: 0;
     transform: translateY(14px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
   }
 
   to {
@@ -343,36 +301,6 @@ a {
   50% {
     opacity: 1;
     transform: translate3d(-10px, 8px, 0) scale(1.04);
-  }
-}
-
-@keyframes shield-scan {
-  0% {
-    opacity: 0;
-    transform: translateX(-115%);
-  }
-
-  15% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(115%);
-  }
-}
-
-@keyframes shield-pop {
-  from {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(1.06);
   }
 }
 

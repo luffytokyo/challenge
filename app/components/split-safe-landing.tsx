@@ -1,5 +1,7 @@
 "use client";
 
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import Link from "next/link";
 
 import {
@@ -9,12 +11,20 @@ import {
   SPLIT_MEMBERS,
   SPLIT_STATS,
 } from "../constants/split-safe";
-import { useSolanaWallet } from "../hooks/use-solana-wallet";
-import type { WalletState } from "../utils/wallet";
+import { truncateAddress } from "../utils/wallet";
 
 export function SplitSafeLanding() {
-  const { connectedLabel, connectWallet, walletMessage, walletState } =
-    useSolanaWallet();
+  const { connected, connecting, disconnect, publicKey } = useWallet();
+  const { setVisible } = useWalletModal();
+
+  const handleWalletButton = () => {
+    if (connected) {
+      void disconnect();
+      return;
+    }
+
+    setVisible(true);
+  };
 
   return (
     <main className="min-h-screen overflow-hidden bg-[var(--bg)] text-[var(--ink)]">
@@ -22,10 +32,12 @@ export function SplitSafeLanding() {
       <section className="hero-shell relative min-h-screen px-3 py-3 sm:px-5 sm:py-4">
         <div className="site-shell-enter mx-auto flex h-[calc(100vh-1.5rem)] min-h-[640px] w-full max-w-[1440px] flex-col overflow-hidden rounded-[28px] border border-[var(--line)] bg-[var(--hero-panel)] shadow-[0_30px_90px_rgba(0,0,0,0.35)] sm:h-[calc(100vh-2rem)] lg:min-h-[680px]">
           <SplitSafeHeader
-            connectedLabel={connectedLabel}
-            onConnectWallet={connectWallet}
-            walletMessage={walletMessage}
-            walletState={walletState}
+            connectedLabel={
+              publicKey ? truncateAddress(publicKey.toBase58()) : "Wallet connected"
+            }
+            isConnected={connected}
+            isConnecting={connecting}
+            onConnectWallet={handleWalletButton}
           />
 
           <div className="relative z-10 grid flex-1 items-center gap-7 px-5 pb-7 pt-4 sm:px-8 md:gap-10 lg:grid-cols-[0.94fr_0.86fr] lg:px-12 lg:pb-8 lg:pt-2 xl:px-16">
@@ -40,14 +52,14 @@ export function SplitSafeLanding() {
 
 function SplitSafeHeader({
   connectedLabel,
+  isConnected,
+  isConnecting,
   onConnectWallet,
-  walletMessage,
-  walletState,
 }: {
   connectedLabel: string;
+  isConnected: boolean;
+  isConnecting: boolean;
   onConnectWallet: () => void;
-  walletMessage: string;
-  walletState: WalletState;
 }) {
   return (
     <header className="motion-rise motion-delay-1 relative z-10 flex items-start justify-between gap-4 px-5 py-5 sm:px-8 lg:px-12 xl:px-16">
@@ -84,21 +96,16 @@ function SplitSafeHeader({
         <button
           type="button"
           onClick={onConnectWallet}
-          aria-busy={walletState === "connecting"}
+          aria-busy={isConnecting}
           className="interactive-lift min-h-11 rounded-full bg-[var(--lime)] px-5 py-3 text-sm font-semibold text-[var(--lime-ink)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:cursor-wait disabled:opacity-80 sm:px-6"
-          disabled={walletState === "connecting"}
+          disabled={isConnecting}
         >
-          {walletState === "connecting"
+          {isConnecting
             ? "Connecting..."
-            : walletState === "connected"
+            : isConnected
               ? connectedLabel
               : "Connect wallet"}
         </button>
-        {walletMessage ? (
-          <p className="max-w-44 text-right text-[11px] leading-4 text-[var(--muted)]">
-            {walletMessage}
-          </p>
-        ) : null}
       </div>
     </header>
   );
