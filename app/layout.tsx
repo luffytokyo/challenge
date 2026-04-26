@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "StealthPay",
-  description: "Private contributor payouts built for Loyal's private transaction SDK.",
+  title: "SplitSafe",
+  description: "Private bill splitting built with Loyal's private transaction SDK.",
 };
 
 export default function RootLayout({
